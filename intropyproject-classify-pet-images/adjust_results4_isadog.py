@@ -25,13 +25,11 @@ def adjust_results4_isadog(results_dic, dogfile):
         pet_label = results_dic[key][0]
         classifier_label = results_dic[key][1]
 
-        # Check whether actual pet is a dog
         if pet_label in dognames:
             pet_is_dog = 1
         else:
             pet_is_dog = 0
 
-        # Check whether classifier identified a dog
         classifier_is_dog = 0
 
         classifier_labels = classifier_label.split(",")
@@ -44,8 +42,6 @@ def adjust_results4_isadog(results_dic, dogfile):
                 classifier_is_dog = 1
                 break
 
-        results_dic[key].extend(
-            [pet_is_dog, classifier_is_dog]
-        )
+        results_dic[key].extend([pet_is_dog, classifier_is_dog])
 
     return None

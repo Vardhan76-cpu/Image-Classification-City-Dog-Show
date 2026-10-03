@@ -14,19 +14,25 @@ def classify_images(images_dir, results_dic, model):
 
     for key in results_dic:
 
-        # Classify the image
-        model_label = classifier(images_dir + key, model)
+        # Create the full path to the image
+        image_path = images_dir + key
 
-        # Convert classifier label to lowercase
+        # Get the classifier label
+        model_label = classifier(image_path, model)
+
+        # Format classifier label
         model_label = model_label.lower().strip()
 
-        # Get the actual pet label
-        truth = results_dic[key][0]
+        # Get the pet image label
+        pet_label = results_dic[key][0]
 
-        # Check whether the pet label appears in the classifier labels
-        if truth in model_label:
-            results_dic[key].extend([model_label, 1])
+        # Add classifier label to the results dictionary
+        results_dic[key].append(model_label)
+
+        # Compare pet label with classifier label
+        if pet_label in model_label:
+            results_dic[key].append(1)
         else:
-            results_dic[key].extend([model_label, 0])
+            results_dic[key].append(0)
 
     return None

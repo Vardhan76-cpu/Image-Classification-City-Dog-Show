@@ -1,16 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
 def print_results(
         results_dic,
         results_stats,
         model,
         print_incorrect_dogs=False,
         print_incorrect_breed=False):
-    """
-    Prints the final classification results.
-    """
 
     print(
         "\n\n*** Results Summary for CNN Model Architecture",
@@ -67,15 +60,12 @@ def print_results(
         )
     )
 
-    # Print incorrect dog classifications
     if print_incorrect_dogs:
 
         print("\n*** Incorrect Dog Classifications:")
 
         for key in results_dic:
 
-            # Actual image is dog
-            # Classifier says it is not a dog
             if (
                 results_dic[key][3] == 1
                 and
@@ -91,16 +81,12 @@ def print_results(
                     key
                 )
 
-    # Print incorrect dog breed classifications
     if print_incorrect_breed:
 
         print("\n*** Incorrect Dog Breed Classifications:")
 
         for key in results_dic:
 
-            # Actual image is dog
-            # Classifier says dog
-            # But breed does not match
             if (
                 results_dic[key][3] == 1
                 and
