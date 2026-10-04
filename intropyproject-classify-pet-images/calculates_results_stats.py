@@ -25,23 +25,33 @@ def calculates_results_stats(results_dic):
     n_correct_dogs = 0
     n_correct_notdogs = 0
     n_correct_breed = 0
+    n_match = 0
 
     for key in results_dic:
 
+        # Count label matches
+        if results_dic[key][2] == 1:
+            n_match += 1
+
+        # Count actual dog images
         if results_dic[key][3] == 1:
 
             n_dogs_img += 1
 
+            # Correct dog/non-dog classification
             if results_dic[key][4] == 1:
                 n_correct_dogs += 1
 
+            # Correct breed classification
             if results_dic[key][2] == 1:
                 n_correct_breed += 1
 
+        # Count non-dog images
         else:
 
             n_notdogs_img += 1
 
+            # Correctly identified as not a dog
             if results_dic[key][4] == 0:
                 n_correct_notdogs += 1
 
@@ -52,6 +62,7 @@ def calculates_results_stats(results_dic):
     results_stats["n_correct_notdogs"] = n_correct_notdogs
     results_stats["n_correct_breed"] = n_correct_breed
 
+    # Percentage of correctly classified dog images
     if n_dogs_img > 0:
 
         results_stats["pct_correct_dogs"] = (
@@ -67,6 +78,7 @@ def calculates_results_stats(results_dic):
         results_stats["pct_correct_dogs"] = 0.0
         results_stats["pct_correct_breed"] = 0.0
 
+    # Percentage of correctly classified non-dog images
     if n_notdogs_img > 0:
 
         results_stats["pct_correct_notdogs"] = (
@@ -77,15 +89,18 @@ def calculates_results_stats(results_dic):
 
         results_stats["pct_correct_notdogs"] = 0.0
 
-    n_correct = n_correct_dogs + n_correct_notdogs
-    results_stats["n_correct"] = n_correct
-    results_stats["n_incorrect"] = n_images - n_correct
+    # Overall label match percentage
+    results_stats["n_match"] = n_match
+    results_stats["n_incorrect"] = n_images - n_match
 
     if n_images > 0:
-        results_stats["pct_correct"] = (
-            n_correct / n_images
+
+        results_stats["pct_match"] = (
+            n_match / n_images
         ) * 100.0
+
     else:
-        results_stats["pct_correct"] = 0.0
+
+        results_stats["pct_match"] = 0.0
 
     return results_stats

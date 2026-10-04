@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
 def print_results(
         results_dic,
         results_stats,
@@ -35,7 +39,7 @@ def print_results(
     print(
         "\n{:20}: {:5.1f}%".format(
             "pct_match",
-            results_stats["pct_correct"]
+            results_stats["pct_match"]
         )
     )
 
